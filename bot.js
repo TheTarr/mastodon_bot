@@ -91,7 +91,7 @@ listener.on('message', msg => {
                 toot(reply, id);
             }
 
-            // 调用 python
+            // 调用 python 1： LanguageTool
             const regex4 = /(LanguageTool|grammar)/i;
             if (regex4.test(content)) {
                 var options = {
@@ -107,6 +107,24 @@ listener.on('message', msg => {
                     console.log(results[0]);
                     const reply = results[0];
                     toot(`@${acct} 泥嚎! I told LanguageTool to check the grammar for you. -> ` + reply + " 操！", id);
+                });
+            }
+
+            // 调用 python 2： 随机两个AU
+            const regex5 = /(paro|AU|梗)/i;
+            if (regex5.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for AU");
+                const acct = msg.data.account.acct;
+                PythonShell.run('AU.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} 泥嚎! 我的建议是： ` + reply + " 操！", id);
                 });
             }
         }
