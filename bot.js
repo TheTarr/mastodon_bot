@@ -127,6 +127,26 @@ listener.on('message', msg => {
                     toot(`@${acct} 泥嚎! 我的建议是： ` + reply + " 操！", id);
                 });
             }
+
+            // 调用 python 3： 奇遇
+            const regex6 = /(奇遇|冒险)/i;
+            if (regex6.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for adventure");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('adventure.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + " 操！", id);
+                });
+            }
         }
     }
 });
