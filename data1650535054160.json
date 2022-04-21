@@ -1,0 +1,31 @@
+{
+  "event": "notification",
+  "data": {
+    "id": "4201880",
+    "type": "follow",
+    "created_at": "2022-04-21T09:57:34.660Z",
+    "account": {
+      "id": "108165570992495927",
+      "username": "miantiao07",
+      "acct": "miantiao07",
+      "display_name": "封闭腚沟",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "group": false,
+      "created_at": "2022-04-20T00:00:00.000Z",
+      "note": "<p>重生之我是狗</p>",
+      "url": "https://bgme.me/@miantiao07",
+      "avatar": "https://img.bgme.me/accounts/avatars/108/165/570/992/495/927/original/14ac436a7c8ea873.jpg",
+      "avatar_static": "https://img.bgme.me/accounts/avatars/108/165/570/992/495/927/original/14ac436a7c8ea873.jpg",
+      "header": "https://img.bgme.me/accounts/headers/108/165/570/992/495/927/original/9c38c30b4461b157.png",
+      "header_static": "https://img.bgme.me/accounts/headers/108/165/570/992/495/927/original/9c38c30b4461b157.png",
+      "followers_count": 5,
+      "following_count": 6,
+      "statuses_count": 21,
+      "last_status_at": "2022-04-21",
+      "emojis": [],
+      "fields": []
+    }
+  }
+}
