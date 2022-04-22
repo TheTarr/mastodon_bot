@@ -32,15 +32,15 @@ https://www.youtube.com/watch?v=sKSxBd56H70
 
 （以下所有步骤针对干净如纸纯洁善良未历世事的windows，如果你35块买了个xx云服务器，就按自己服务器系统搜一下各种安装的对应命令，比如搜“linux安装python”（相信会买服务器的同学也不用看这段教程）直接在终端输入各种命令下载.tar.gz 安装包解压安装）
 
-1. 安装python
+### 1. 安装python
 
 https://www.bilibili.com/read/cv13671309
 
-2. 安装node
+### 2. 安装node
 
 https://blog.csdn.net/qq_45752401/article/details/122299475
 
-3. 检查装没装好
+### 3. 检查装没装好
 
 打开一个cmd（win+r,cmd,回车）输入
 
@@ -50,7 +50,7 @@ node --version 回车
 
 分别回复给你相应版本号就行了（版本比上边写的高就行了，低一点应该也问题不大？）
 
-4. 安装 python library。在命令行里输入
+### 4. 安装 python library。在命令行里输入
 
 pip install requests 回车
 
@@ -58,17 +58,21 @@ pip install bs4 回车
 
 pip install sqlalchemy 回车
 
-4. 下载 github 提供的该项目打包文件，解压，打开解压的文件（此时你看到了乱七八糟一堆后缀.py和.json和.js之类的文件），复制目录。比如说 user/me/desktop/mastodon_bot（是个意思，在下面粘你复制好的你的目录不要粘我的）。在cmd里输入
+### 4. 下载 github 提供的该项目打包文件
+
+解压，打开解压的文件（此时你看到了乱七八糟一堆后缀.py和.json和.js之类的文件），复制目录
+
+比如说 user/me/desktop/mastodon_bot（是个意思，在下面粘你复制好的你的目录不要粘我的）。在cmd里输入
 
 cd user/me/desktop/mastodon_bot 回车，然后把这个窗口放一边备用
 
-5. 获取你的长毛象应用接口（高级说法API）
+### 5. 获取你的长毛象应用接口（高级说法API）
 
 长毛象主页左下角那一堆平时没人看的东西里有一个“开发”，选创建应用，起个名，权限按她默认的勾选不用动即可，之后会得到三个乱码。把三个乱码填进
 
 .env-example
 
-这个文件，吧乱码粘到等于号后边
+这个文件，把乱码粘到等于号后边
 
 应用ID 对应 CLIENT_KEY
 
@@ -82,9 +86,9 @@ PI_URL=https://bgme.me/api/v1/ 这里操操在bgme，如果你在别的站点就
 
 .env
 
-6. 拿出刚才准备好的，cd到指定目录的窗口，输入
+### 6. 拿出刚才准备好的，cd到指定目录的窗口，输入
 
-node bot.js
+node bot.js 回车
 
 发现屏幕上出现一行Mastodon Bot starting...就可以了！
 
