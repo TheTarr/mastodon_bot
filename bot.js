@@ -169,6 +169,24 @@ listener.on('message', msg => {
                     toot(`@${acct} \r\n` + reply + " \r\n 操！", id, visib);
                 });
             }
+
+            // 调用 python 5： ao3随机一篇中文同人
+            const regex8 = /(找文|抽文|随机文)/i;
+            if (regex8.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a fanfic");
+                const acct = msg.data.account.acct;
+                PythonShell.run('random_fanfic.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                });
+            }
         }
     }
 });
