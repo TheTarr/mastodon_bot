@@ -13,12 +13,15 @@ const M = new Mastodon({
     api_url: process.env.API_URL, // optional, defaults to https://mastodon.social/api/v1/
 })
 
-function toot(mystr, id) {
+function toot(mystr, id, visib) {
     const params = {
         status: mystr,
     }
     if (id) {
         params.in_reply_to_id = id;
+    }
+    if(visib){
+        params.visibility = visib;
     }
 
     M.post('statuses', params, (error, data) => {
@@ -49,6 +52,7 @@ listener.on('message', msg => {
             const regex1 = /(喜欢|点赞)/i;
             const content = msg.data.status.content;
             const id = msg.data.status.id;
+            const visib = msg.data.status.visibility;
             console.log("mentioned by someone!");
             if (regex1.test(content)) {
                 M.post(`statuses/${id}/favourite`, (error, data) => {
@@ -88,7 +92,7 @@ listener.on('message', msg => {
                 const acct = msg.data.account.acct;
                 const num = Math.floor(Math.random() * 100);
                 const reply = `@${acct} 今天的幸运数是：${num} 操！`;
-                toot(reply, id);
+                toot(reply, id, visib);
             }
 
             // 调用 python 1： LanguageTool
@@ -106,7 +110,7 @@ listener.on('message', msg => {
                       throw err;
                     console.log(results[0]);
                     const reply = results[0];
-                    toot(`@${acct} 泥嚎! I told LanguageTool to check the grammar for you. -> ` + reply + " 操！", id);
+                    toot(`@${acct} 泥嚎! I told LanguageTool to check the grammar for you. -> ` + reply + " 操！", id, visib);
                 });
             }
 
@@ -124,7 +128,7 @@ listener.on('message', msg => {
                       throw err;
                     console.log(results[0]);
                     const reply = results[0];
-                    toot(`@${acct} 泥嚎! 我的建议是： ` + reply + " 操！", id);
+                    toot(`@${acct} 泥嚎! 我的建议是： ` + reply + " 操！", id, visib);
                 });
             }
 
@@ -144,7 +148,25 @@ listener.on('message', msg => {
                       throw err;
                     console.log(results[0]);
                     const reply = results[0];
-                    toot(`@${acct} ` + reply + " 操！", id);
+                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                });
+            }
+
+            // 调用 python 4： 诗
+            const regex7 = /(诗|poem)/i;
+            if (regex7.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody ask for a poem");
+                const acct = msg.data.account.acct;
+                PythonShell.run('poem.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + " \r\n 操！", id, visib);
                 });
             }
         }
