@@ -80,7 +80,7 @@ cd user/me/desktop/mastodon_bot 回车，然后把这个窗口放一边备用
 
 你的访问令牌 对应 ACCESS_TOKEN 【这个必须贴对，上边这俩我一开始好像贴反了，不影响用】
 
-PI_URL=https://bgme.me/api/v1/ 这里操操在bgme，如果你在别的站点就把bgme.me换成你的站点
+API_URL=https://bgme.me/api/v1/ 这里操操在bgme，如果你在别的站点就把bgme.me换成你的站点
 
 然后把这个文件重命名，去掉-example，变成
 
@@ -92,6 +92,6 @@ node bot.js 回车
 
 发现屏幕上出现一行Mastodon Bot starting...就可以了！
 
-我在尝试的过程中发现启动后第一次通知往往收不到（可能是我连接的问题？），多艾特一次就好了
+我在尝试的过程中发现启动后第一次通知往往收不到（可能是我连接的问题？）多艾特一次就好了
 
 如果没有这行字而是报错了！！可以在这里找我！ -> miantiao07@bgme.me（虽然我也不一定能解决你的问题！）
