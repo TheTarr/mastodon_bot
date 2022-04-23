@@ -5,6 +5,7 @@ import random
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 
+# 以下两个参数用来爬诗词网站，若出问题请更换
 randpage = random.randint(1,83)
 url = "http://www.chinapoesy.com/XianDaiList_" + str(randpage) + ".html"
 

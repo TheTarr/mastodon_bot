@@ -12,6 +12,10 @@ mylist = ['人鱼', '吸血鬼', '赛博朋克', '丧尸', '龙', '社畜', \
         '神奇动物在我的楼顶', '超级英雄', '两方长出了猫耳', '队里有一个人是O究竟是谁呢', \
         '酒后乱性', '变成狗了', '接吻就会交换运气']
 
+# 保证两个AU不重合
 flag1 = random.randint(0,len(mylist)-1)
-flag2 = random.randint(0,len(mylist)-1)
+while True:
+    flag2 = random.randint(0,len(mylist)-1)
+    if flag2 != flag1:
+        break
 print(mylist[flag1] + " + " +  mylist[flag2])
