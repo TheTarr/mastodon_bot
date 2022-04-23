@@ -12,8 +12,6 @@
 
    ----- bs4
 
-   ----- sqlalchemy
-
 3. 服务器跑额外需要pm2
 
 # 环境布置好后启动程序
@@ -51,8 +49,6 @@ node --version 回车
 pip install requests 回车
 
 pip install bs4 回车
-
-pip install sqlalchemy 回车
 
 ### 4. 下载 github 提供的该项目打包文件
 
