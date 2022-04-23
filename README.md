@@ -95,3 +95,5 @@ node bot.js 回车
 我在尝试的过程中发现启动后第一次通知往往收不到（可能是我连接的问题？）多艾特一次就好了
 
 如果没有这行字而是报错了！！可以在这里找我！ -> miantiao07@bgme.me（虽然我也不一定能解决你的问题！）
+
+<a rel="me" href="https://bgme.me/@ciao">Mastodon</a>
