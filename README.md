@@ -32,13 +32,9 @@
 
 （以下所有步骤针对干净如纸纯洁善良未历世事的windows，如果你35块买了个xx云服务器，就按自己服务器系统搜一下各种安装的对应命令，比如搜“linux安装python”（相信会买服务器的同学也不用看这段教程）直接在终端输入各种命令下载.tar.gz 安装包解压安装）
 
-### 1. 安装python<a href="https://www.bilibili.com/read/cv13671309">安装python</a>
+### 1. <a href="https://www.bilibili.com/read/cv13671309">安装python</a>
 
-https://www.bilibili.com/read/cv13671309
-
-### 2. 安装node
-
-https://blog.csdn.net/qq_45752401/article/details/122299475
+### 2. <a href="https://blog.csdn.net/qq_45752401/article/details/122299475">安装node</a>
 
 ### 3. 检查装没装好
 
@@ -94,4 +90,4 @@ node bot.js 回车
 
 我在尝试的过程中发现启动后第一次通知往往收不到（可能是我连接的问题？）多艾特一次就好了
 
-如果没有这行字而是报错了！！可以在这里找我！ -> miantiao07@bgme.me（虽然我也不一定能解决你的问题！）
+如果没有这行字而是报错了！！可以在这里找我！ -> <a rel="me" href="https://bgme.me/@miantiao07">面条</a>（虽然我也不一定能解决你的问题！）
