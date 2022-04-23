@@ -18,7 +18,7 @@
 
 # 边学边做的保姆级教学
 
-https://www.youtube.com/watch?v=sKSxBd56H70
+<a href="https://www.youtube.com/watch?v=sKSxBd56H70">油管up主：The Coding Train</a>
 
 我没有node基础，全程是看这个教程做的，讲得很细致（对于做一个bot足够用）
 
@@ -32,7 +32,7 @@ https://www.youtube.com/watch?v=sKSxBd56H70
 
 （以下所有步骤针对干净如纸纯洁善良未历世事的windows，如果你35块买了个xx云服务器，就按自己服务器系统搜一下各种安装的对应命令，比如搜“linux安装python”（相信会买服务器的同学也不用看这段教程）直接在终端输入各种命令下载.tar.gz 安装包解压安装）
 
-### 1. 安装python
+### 1. 安装python<a href="https://www.bilibili.com/read/cv13671309">安装python</a>
 
 https://www.bilibili.com/read/cv13671309
 
