@@ -14,13 +14,10 @@ res = requests.get(url)
 soup = BeautifulSoup(res.text, "html.parser")
 num_of_article = soup.find_all('h3')[1]
 
-# print(num_of_article.get_text()[:-10])
-
 all_li = soup.find_all('h4', class_ = "heading")
-# print(all_li)
+# print(all_li[2:len(all_li)-5])
 
-num = random.randint(2,len(all_li)-1)
+num = random.randint(2,len(all_li)-5)
 my_a = all_li[num].a
-# print(my_a)
 
 print("泥嚎！这是操操在 ao3 共计 "+ num_of_article.get_text()[:-9] + " 篇中文作品中专门为你找到的：" + my_a.get_text() + " https://" + host + my_a['href'])

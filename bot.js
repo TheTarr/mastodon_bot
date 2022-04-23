@@ -79,7 +79,7 @@ listener.on('message', msg => {
                             console.error(error);
                         } else {
                             console.log(`Reblogged: ${data.content}`);
-                            toot("有人叫我转这条↑ 操！");
+                            // toot("有人叫我转这条↑ 操！");
                         }
                     });
                 }
@@ -189,7 +189,7 @@ listener.on('message', msg => {
             }
 
             // 道歉
-            const regex9 = /(道歉|不孝女|你错了|可知罪|孽畜|小畜牲)/i;
+            const regex9 = /(道歉|不孝女|可知罪)/i;
             if (regex9.test(content)) {
                 console.log("somebody ask for a apologize");
                 const acct = msg.data.account.acct;
@@ -202,30 +202,30 @@ listener.on('message', msg => {
             if (regex10.test(content)) {
                 console.log("somebody ask for a hi");
                 const acct = msg.data.account.acct;
-                const reply = `@${acct} 你好！我在！操！`;
+                const reply = `@${acct} 我在！操！`;
                 toot(reply, id, visib);
             }
 
-            // // 什么事这么激动
-            // const regex11 = /(啊啊啊|杀杀杀)/i;
-            // if (regex11.test(content)) {
-            //     console.log("i will interact");
-            //     const acct = msg.data.account.acct;
-            //     const reply = `@${acct} 什么事这么激动？操！`;
-            //     toot(reply, id, visib);
-            // }
+            // 被告白了
+            const regex11 = /(喜欢你|我爱你|爱我)/i;
+            if (regex11.test(content)) {
+                console.log("i will not interact");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} [操操没有回答。]`;
+                toot(reply, id, visib);
+            }
 
             // 机器人
             const regex12 = /(是机器人|是活人|是真人)/i;
             if (regex12.test(content)) {
                 console.log("somebody ask for a answer");
                 const acct = msg.data.account.acct;
-                const reply = `@${acct} 操操当然是机器人！操！`;
+                const reply = `@${acct} 操操当然是机器人！不可以质疑操操！操！`;
                 toot(reply, id, visib);
             }
 
             // 骂人
-            const regex13 = /(我是你妈|你是狗|你傻逼|骂我|踩我|操操笨蛋|操操傻)/i;
+            const regex13 = /(我是你妈|操操笨|骂我)/i;
             if (regex13.test(content)) {
                 console.log("somebody ask for abuse");
                 const acct = msg.data.account.acct;
@@ -233,26 +233,26 @@ listener.on('message', msg => {
                 toot(reply, id, visib);
             }
 
-            // // 谢谢
-            // const regex14 = /(太牛了|懂事|可爱)/i;
-            // if (regex14.test(content)) {
-            //     console.log("somebody ask for a thx");
-            //     const acct = msg.data.account.acct;
-            //     const reply = `@${acct} 谢谢妞！操！`;
-            //     toot(reply, id, visib);
-            // }
+            // 谢谢
+            const regex14 = /(成精|可爱)/i;
+            if (regex14.test(content)) {
+                console.log("somebody ask for a thx");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 谢谢夸奖，妞儿！操！`;
+                toot(reply, id, visib);
+            }
 
             // 笑
             const regex15 = /(哈哈哈|笑死)/i;
             if (regex15.test(content)) {
                 console.log("somebody ask for a haha");
                 const acct = msg.data.account.acct;
-                const reply = `@${acct} 哈哈！操！`;
+                const reply = `@${acct} 你似乎很高兴！所以操操也很高兴！操！`;
                 toot(reply, id, visib);
             }
 
             // 操
-            const regex16 = /(操！|操啊|我操|操了)/i;
+            const regex16 = /(操！|超！)/i;
             if (regex16.test(content)) {
                 console.log("somebody ask for fuck");
                 const acct = msg.data.account.acct;
@@ -260,7 +260,7 @@ listener.on('message', msg => {
                 toot(reply, id, visib);
             }
 
-            // 笑
+            // 干啥
             const regex17 = /(嘛呢|在干嘛|干啥呢)/i;
             if (regex17.test(content)) {
                 console.log("somebody ask for jinkuang");
