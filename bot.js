@@ -188,23 +188,34 @@ listener.on('message', msg => {
                 });
             }
 
-            // 道歉
-            const regex9 = /(道歉|不孝女|可知罪)/i;
+            // 调用python 6：写诗
+            const regex9 = /(加一句|来一句|写一句|你好|接龙)/i;
             if (regex9.test(content)) {
-                console.log("somebody ask for a apologize");
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody wrote a line");
+                console.log(content);
                 const acct = msg.data.account.acct;
-                const reply = `@${acct} 对不起！！！操！`;
-                toot(reply, id, visib);
+                PythonShell.run('write_poem.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                });
             }
 
-            // 问好
-            const regex10 = /(你好|在吗)/i;
-            if (regex10.test(content)) {
-                console.log("somebody ask for a hi");
-                const acct = msg.data.account.acct;
-                const reply = `@${acct} 我在！操！`;
-                toot(reply, id, visib);
-            }
+            // // 问好
+            // const regex10 = /(你好|在吗)/i;
+            // if (regex10.test(content)) {
+            //     console.log("somebody ask for a hi");
+            //     const acct = msg.data.account.acct;
+            //     const reply = `@${acct} 我在！操！`;
+            //     toot(reply, id, visib);
+            // }
 
             // 被告白了
             const regex11 = /(喜欢你|我爱你|爱我)/i;
