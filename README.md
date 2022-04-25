@@ -1,4 +1,4 @@
-# mastodon_bot
+# mastodon_bot 长毛象机器人
 
 长毛象机器人：<a rel="me" href="https://bgme.me/@ciao">操操</a>
 
