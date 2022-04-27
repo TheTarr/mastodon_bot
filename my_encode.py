@@ -22,6 +22,7 @@ def encrypt_oracle(mystr):
     # encrypt_aes = aes.encrypt(add_to_16(text))
     # #用base64转成字符串形式
     # encrypted_text = str(base64.encodebytes(encrypt_aes), encoding='utf-8')  # 执行加密并转码返回bytes
+
     mystr = mystr.encode('utf-8')
     encrypted_text = base64.b64encode(mystr)
     return encrypted_text
@@ -37,12 +38,15 @@ def decrypt_oralce(text):
     # base64_decrypted = base64.decodebytes(text.encode(encoding='utf-8'))
     # #
     # decrypted_text = str(aes.decrypt(base64_decrypted),encoding='utf-8') # 执行解密密并转码返回str
-    # decrypted_text = base64.b64decode(decrypted_text.encode('utf-8')).decode('utf-8')
+    # decrypted_text = base64.b64decode(decrypted_text.encode('utf-8'))[2:].decode('utf-8')
+
+
     decrypted_text = base64.b64decode(text)
     return decrypted_text
 
 # if __name__ == '__main__':
 #    value = encrypt_oracle("你好，世界")
+#    print(value)
 #    print(decrypt_oralce(value))
 
 def decode_poem(path):

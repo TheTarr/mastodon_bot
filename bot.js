@@ -204,18 +204,29 @@ listener.on('message', msg => {
                       throw err;
                     console.log(results[0]);
                     const reply = results[0];
-                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                    toot(`@${acct} ` + reply + "\r\n操！", id, visib);
                 });
             }
 
-            // // 问好
-            // const regex10 = /(你好|在吗)/i;
-            // if (regex10.test(content)) {
-            //     console.log("somebody ask for a hi");
-            //     const acct = msg.data.account.acct;
-            //     const reply = `@${acct} 我在！操！`;
-            //     toot(reply, id, visib);
-            // }
+            // 调用python 7：抽卡
+            const regex10 = /(抽卡|抽牌)/i;
+            if (regex10.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody pick a card");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('random_card.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
 
             // 被告白了
             const regex11 = /(喜欢你|我爱你|爱我)/i;
