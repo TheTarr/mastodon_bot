@@ -52,6 +52,27 @@ mastodon即长毛象，是一个去中心化的社交平台。操操是长毛象
           
 【grammar/LanguageTool】 -> 您的英语作文将被发送至开源自动校对项目languagetool检查可能存在的语法错误
 
+
+# 逻辑
+
+bot.js持续监听长毛象API，通过bot.js或fork python程序完成指令，bot.js向用户发嘟文返回结果
+
+python程序对应：
+
+LanguageTool|grammar -> grammar_check.py
+
+paro|AU|梗 -> AU.py
+
+奇遇|冒险 -> adventure.py
+
+诗|poem -> poem.py
+
+找文|抽文|随机文 -> random_fanfic.py
+
+加一句|来一句|写一句|你好|接龙 -> write_poem.py
+
+抽卡|抽牌 -> random_card.py
+
 # 为了跑这些代码，你需要
 
 1. nodejs[14.16.1]（library文件里包含了）
