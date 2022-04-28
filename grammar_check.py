@@ -1,5 +1,6 @@
 # Python program to demonstrate
 # command line arguments
+# 这是一个冗余功能，没什么人用，可以在bot.js中删除相应接口
  
 import sys
 import requests

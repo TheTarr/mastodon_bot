@@ -1,3 +1,4 @@
+# 收到关键词诗，返回一首诗
 import requests
 from bs4 import BeautifulSoup
 import sys

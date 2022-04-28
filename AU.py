@@ -1,3 +1,4 @@
+# 返回两个AU
 import sys
 import random
 import io

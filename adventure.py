@@ -1,3 +1,4 @@
+# 收到用户两个人名，生成一个故事返回
 import sys
 import random
 import io

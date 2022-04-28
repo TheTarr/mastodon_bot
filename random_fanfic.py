@@ -1,3 +1,4 @@
+# 从archiveofourown抽一篇文章返回，返回一个国内能用的镜像网站名
 import requests
 from bs4 import BeautifulSoup
 import sys
@@ -6,8 +7,8 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 
 num = random.randint(1,4999)
-host = 'archiveofourown.org'
-in_wall_host = 'login.ao3.site'
+host = 'archiveofourown.org' # 从总站抽
+in_wall_host = 'login.ao3.site' # 返回国内能用的网址
 
 try: 
     url = "https://" + host + "/works/search?commit=Search&page=" + str(num) +  "&work_search%5Bbookmarks_count%5D=&work_search%5Bcharacter_names%5D=&work_search%5Bcomments_count%5D=&work_search%5Bcomplete%5D=&work_search%5Bcreators%5D=&work_search%5Bcrossover%5D=&work_search%5Bfandom_names%5D=&work_search%5Bfreeform_names%5D=&work_search%5Bhits%5D=&work_search%5Bkudos_count%5D=&work_search%5Blanguage_id%5D=zh&work_search%5Bquery%5D=&work_search%5Brating_ids%5D=&work_search%5Brelationship_names%5D=&work_search%5Brevised_at%5D=&work_search%5Bsingle_chapter%5D=0&work_search%5Bsort_column%5D=_score&work_search%5Bsort_direction%5D=desc&work_search%5Btitle%5D=&work_search%5Bword_count%5D="

@@ -1,9 +1,8 @@
+# 因为服务器选用阿里云香港，担心含有敏感词的文本储存在云端会被审查。所以用base64乱码储存
+# 本来想抄AES，一个是没必要，另一个是没成功【。
 import base64
-from Crypto.Cipher import AES
+# from Crypto.Cipher import AES
 
-'''
-采用AES对称加密算法
-'''
 # str不是16的倍数那就补足为16的倍数
 def add_to_16(value):
     while len(value) % 16 != 0:

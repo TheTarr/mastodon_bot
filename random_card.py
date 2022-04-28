@@ -1,3 +1,4 @@
+# 收到人名，返回参数
 import sys
 import random
 import io
