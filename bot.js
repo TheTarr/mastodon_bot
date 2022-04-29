@@ -45,7 +45,7 @@ listener.on('message', msg => {
         // 若有人关注，则发一条博文艾特并感谢
         if (msg.data.type === 'follow') {
             const acct = msg.data.account.acct;
-            toot(`@${acct} 谢谢关注XD 操！`);
+            toot(`@${acct} 谢谢关注XD 操！`, null ,"direct");
         } else if (msg.data.type === 'mention') {
 
             // 给对方点赞
