@@ -166,7 +166,7 @@ listener.on('message', msg => {
                       throw err;
                     console.log(results);
                     const reply = results.join('\r\n');
-                    toot(`@${acct} \r\n` + reply + " \r\n 操！", id, visib);
+                    toot(`@${acct} \r\n\r\n` + reply + " \r\n\r\n操！", id, visib);
                 });
             }
 
@@ -237,22 +237,42 @@ listener.on('message', msg => {
                 toot(reply, id, visib);
             }
 
-            // 机器人
-            const regex12 = /(是机器人|是活人|是真人)/i;
+            // 调用python 8：记录letter
+            const regex12 = /(扔瓶子|丢瓶子)/i;
             if (regex12.test(content)) {
-                console.log("somebody ask for a answer");
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody throw a letter");
+                console.log(content);
                 const acct = msg.data.account.acct;
-                const reply = `@${acct} 操操当然是机器人！不可以质疑操操！操！`;
-                toot(reply, id, visib);
+                PythonShell.run('write_letter.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
             }
 
-            // 骂人
-            const regex13 = /(我是你妈|操操笨|骂我)/i;
+            // 调用python 8：读取letter
+            const regex13 = /(捡瓶子|收瓶子)/i;
             if (regex13.test(content)) {
-                console.log("somebody ask for abuse");
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody ask for a letter");
                 const acct = msg.data.account.acct;
-                const reply = `@${acct} 你是狗吧！操！`;
-                toot(reply, id, visib);
+                PythonShell.run('read_letter.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n`  + "您好！这是操操为您在大海中捡到的漂流瓶：\r\n\r\n" + reply + "\r\n\r\n操！", id, visib);
+                });
             }
 
             // 谢谢
@@ -283,7 +303,7 @@ listener.on('message', msg => {
             }
 
             // 干啥
-            const regex17 = /(嘛呢|在干嘛|干啥呢)/i;
+            const regex17 = /(嘛呢|在干嘛|干啥呢|在吗)/i;
             if (regex17.test(content)) {
                 console.log("somebody ask for jinkuang");
                 const acct = msg.data.account.acct;
@@ -295,4 +315,3 @@ listener.on('message', msg => {
 });
 
 listener.on('error', err => console.log(err))
-
