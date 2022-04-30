@@ -45,11 +45,12 @@ listener.on('message', msg => {
         // 若有人关注，则发一条博文艾特并感谢
         if (msg.data.type === 'follow') {
             const acct = msg.data.account.acct;
-            toot(`@${acct} 谢谢关注XD 操！`, null ,"direct");
+            // toot(`@${acct} 谢谢关注XD 操！`, null ,"direct");
+            console.log("Followed by somebody");
         } else if (msg.data.type === 'mention') {
 
             // 给对方点赞
-            const regex1 = /(喜欢|点赞)/i;
+            const regex1 = /(喜欢|点赞|喜歡|點贊)/i;
             const content = msg.data.status.content;
             const id = msg.data.status.id;
             const visib = msg.data.status.visibility;
@@ -65,7 +66,7 @@ listener.on('message', msg => {
             }
 
             // 转发博文
-            const regex2 = /(转发|转嘟)/i;
+            const regex2 = /(转发|转嘟|轉發|轉嘟)/i;
             if (regex2.test(content)) {
                 console.log(msg);
                 const vis = msg.data.status.visibility;
@@ -86,7 +87,7 @@ listener.on('message', msg => {
             }
 
             // 回复 0~99 之间的一个随机数
-            const regex3 = /(幸运数|lucky)/i;
+            const regex3 = /(幸运数|lucky|幸運數)/i;
             if (regex3.test(content)) {
                 console.log("somebody ask for a num");
                 const acct = msg.data.account.acct;
@@ -133,7 +134,7 @@ listener.on('message', msg => {
             }
 
             // 调用 python 3： 奇遇
-            const regex6 = /(奇遇|冒险)/i;
+            const regex6 = /(奇遇|冒险|冒險)/i;
             if (regex6.test(content)) {
                 var options = {
                     mode: 'text',
@@ -153,7 +154,7 @@ listener.on('message', msg => {
             }
 
             // 调用 python 4： 诗
-            const regex7 = /(诗|poem)/i;
+            const regex7 = /(诗|poem|詩)/i;
             if (regex7.test(content)) {
                 var options = {
                     mode: 'text',
@@ -171,7 +172,7 @@ listener.on('message', msg => {
             }
 
             // 调用 python 5： ao3随机一篇中文同人
-            const regex8 = /(找文|抽文|随机文)/i;
+            const regex8 = /(找文|抽文|随机文|隨機文)/i;
             if (regex8.test(content)) {
                 var options = {
                     mode: 'text',
@@ -189,7 +190,7 @@ listener.on('message', msg => {
             }
 
             // 调用python 6：写诗
-            const regex9 = /(加一句|来一句|写一句|你好|接龙)/i;
+            const regex9 = /(加一句|来一句|写一句|你好|接龙|來一句|寫一句|接龍)/i;
             if (regex9.test(content)) {
                 var options = {
                     mode: 'text',
@@ -202,9 +203,17 @@ listener.on('message', msg => {
                 PythonShell.run('write_poem.py', options, function (err, results) {
                     if (err) 
                       throw err;
+                    // console.log(results[0]);
+                    // const reply = results[0];
+                    // toot(`@${acct} ` + reply + "\r\n操！", id, visib);
                     console.log(results[0]);
-                    const reply = results[0];
-                    toot(`@${acct} ` + reply + "\r\n操！", id, visib);
+                    M.post(`statuses/${id}/favourite`, (error, data) => {
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log(`Favorated: ${data.content}`);
+                        }
+                    });
                 });
             }
 
@@ -229,7 +238,7 @@ listener.on('message', msg => {
             }
 
             // 被告白了
-            const regex11 = /(喜欢你|我爱你|爱我)/i;
+            const regex11 = /(我爱你|我愛你)/i;
             if (regex11.test(content)) {
                 console.log("i will not interact");
                 const acct = msg.data.account.acct;
@@ -252,13 +261,20 @@ listener.on('message', msg => {
                     if (err) 
                       throw err;
                     console.log(results[0]);
-                    const reply = results.join('\r\n');
-                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                    // const reply = results.join('\r\n');
+                    // toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+                M.post(`statuses/${id}/favourite`, (error, data) => {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.log(`Favorated: ${data.content}`);
+                    }
                 });
             }
 
             // 调用python 8：读取letter
-            const regex13 = /(捡瓶子|收瓶子)/i;
+            const regex13 = /(捡瓶子|收瓶子|撿瓶子)/i;
             if (regex13.test(content)) {
                 var options = {
                     mode: 'text',
@@ -275,41 +291,41 @@ listener.on('message', msg => {
                 });
             }
 
-            // 谢谢
-            const regex14 = /(成精|可爱)/i;
-            if (regex14.test(content)) {
-                console.log("somebody ask for a thx");
-                const acct = msg.data.account.acct;
-                const reply = `@${acct} 谢谢夸奖，妞儿！操！`;
-                toot(reply, id, visib);
-            }
+            // // 谢谢
+            // const regex14 = /(成精|可爱)/i;
+            // if (regex14.test(content)) {
+            //     console.log("somebody ask for a thx");
+            //     const acct = msg.data.account.acct;
+            //     const reply = `@${acct} 谢谢夸奖，妞儿！操！`;
+            //     toot(reply, id, visib);
+            // }
 
-            // 笑
-            const regex15 = /(哈哈哈|笑死)/i;
-            if (regex15.test(content)) {
-                console.log("somebody ask for a haha");
-                const acct = msg.data.account.acct;
-                const reply = `@${acct} 你似乎很高兴！所以操操也很高兴！操！`;
-                toot(reply, id, visib);
-            }
+            // // 笑
+            // const regex15 = /(哈哈哈|笑死)/i;
+            // if (regex15.test(content)) {
+            //     console.log("somebody ask for a haha");
+            //     const acct = msg.data.account.acct;
+            //     const reply = `@${acct} 你似乎很高兴！所以操操也很高兴！操！`;
+            //     toot(reply, id, visib);
+            // }
 
-            // 操
-            const regex16 = /(操！|超！)/i;
-            if (regex16.test(content)) {
-                console.log("somebody ask for fuck");
-                const acct = msg.data.account.acct;
-                const reply = `@${acct} 操！`;
-                toot(reply, id, visib);
-            }
+            // // 操
+            // const regex16 = /(操！|超！)/i;
+            // if (regex16.test(content)) {
+            //     console.log("somebody ask for fuck");
+            //     const acct = msg.data.account.acct;
+            //     const reply = `@${acct} 操！`;
+            //     toot(reply, id, visib);
+            // }
 
-            // 干啥
-            const regex17 = /(嘛呢|在干嘛|干啥呢|在吗)/i;
-            if (regex17.test(content)) {
-                console.log("somebody ask for jinkuang");
-                const acct = msg.data.account.acct;
-                const reply = `@${acct} 报告，操操现在无事可做，感觉很无聊！操！`;
-                toot(reply, id, visib);
-            }
+            // // 干啥
+            // const regex17 = /(嘛呢|在干嘛|干啥呢|在吗)/i;
+            // if (regex17.test(content)) {
+            //     console.log("somebody ask for jinkuang");
+            //     const acct = msg.data.account.acct;
+            //     const reply = `@${acct} 报告，操操现在无事可做，感觉很无聊！操！`;
+            //     toot(reply, id, visib);
+            // }
         }
     }
 });
