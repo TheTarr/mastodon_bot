@@ -335,6 +335,26 @@ listener.on('message', msg => {
                 const reply = `@${acct} 不客气！操！`;
                 toot(reply, id, visib);
             }
+
+            // 调用 python 9：儿化音
+            const regex19 = /(加儿|儿化音|兒化音|加兒)/i;
+            if (regex19.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for er");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('add_er.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} 经过缜密思考，操操感觉这句话应该是：\r\n` + reply + "\r\n对不对！操！", id, visib);
+                });
+            }
         }
     }
 });
