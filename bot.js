@@ -291,32 +291,32 @@ listener.on('message', msg => {
                 });
             }
 
-            // // 谢谢
-            // const regex14 = /(成精|可爱)/i;
-            // if (regex14.test(content)) {
-            //     console.log("somebody ask for a thx");
-            //     const acct = msg.data.account.acct;
-            //     const reply = `@${acct} 谢谢夸奖，妞儿！操！`;
-            //     toot(reply, id, visib);
-            // }
+            // 谢谢
+            const regex14 = /(成精|可爱|可愛)/i;
+            if (regex14.test(content)) {
+                console.log("somebody ask for a thx");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 谢谢夸奖，妞儿！操！`;
+                toot(reply, id, visib);
+            }
 
-            // // 笑
-            // const regex15 = /(哈哈哈|笑死)/i;
-            // if (regex15.test(content)) {
-            //     console.log("somebody ask for a haha");
-            //     const acct = msg.data.account.acct;
-            //     const reply = `@${acct} 你似乎很高兴！所以操操也很高兴！操！`;
-            //     toot(reply, id, visib);
-            // }
+            // 笑
+            const regex15 = /(哈哈哈|笑死)/i;
+            if (regex15.test(content)) {
+                console.log("somebody ask for a haha");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 你似乎很高兴！所以操操也很高兴！操！`;
+                toot(reply, id, visib);
+            }
 
-            // // 操
-            // const regex16 = /(操！|超！)/i;
-            // if (regex16.test(content)) {
-            //     console.log("somebody ask for fuck");
-            //     const acct = msg.data.account.acct;
-            //     const reply = `@${acct} 操！`;
-            //     toot(reply, id, visib);
-            // }
+            // 操
+            const regex16 = /(操！|超！)/i;
+            if (regex16.test(content)) {
+                console.log("somebody ask for fuck");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 操！`;
+                toot(reply, id, visib);
+            }
 
             // // 干啥
             // const regex17 = /(嘛呢|在干嘛|干啥呢|在吗)/i;
@@ -326,6 +326,15 @@ listener.on('message', msg => {
             //     const reply = `@${acct} 报告，操操现在无事可做，感觉很无聊！操！`;
             //     toot(reply, id, visib);
             // }
+
+            // 不客气
+            const regex18 = /(谢谢|謝謝)/i;
+            if (regex18.test(content)) {
+                console.log("somebody thanked caocoa");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 不客气！操！`;
+                toot(reply, id, visib);
+            }
         }
     }
 });
