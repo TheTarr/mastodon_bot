@@ -19,7 +19,7 @@ def post_poem(path):
     url = "%s/api/v1/statuses" % 'http://bgme.me'
     r = requests.post(url, 
             data=data, 
-            headers={'Authorization': 'Bearer %s' % '你的访问令牌']})
+            headers={'Authorization': 'Bearer %s' % '你的访问令牌'})
     # json_data = r.json() # you can inspect the json response to check for problems
     # print(json_data)
 
