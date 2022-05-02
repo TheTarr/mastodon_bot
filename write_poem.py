@@ -1,5 +1,8 @@
 import sys
 import io
+import time
+import shutil
+from post_poem import *
 from my_encode import *
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 
@@ -27,8 +30,25 @@ def split_content(text):
 
 poem_line = split_content(content)
 return_string = "通信良好。您的诗句已被记录！"
+
 f = open("poem.txt","a",encoding='UTF-8')   #设置文件对象
 f.write(str(encrypt_oracle(poem_line+'\n'))+'\n')
 f.close() #关闭文件
+
+flag = 0
+
+f = open("poem.txt","r",encoding='UTF-8')   #设置文件对象
+res = len(f.readlines()) 
+f.close() #关闭文件
+
+if res >= 15:
+    flag = 1
+    post_poem('poem.txt')
+
+if flag == 1:
+    shutil.copy('poem.txt','poem/'+time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime())+'.txt')
+    f = open("poem.txt", 'w')
+    f.write(str(encrypt_oracle(time.strftime('%Y/%m/%d - %H', time.localtime())+' 时\n'))+'\n')
+    f.close()
 
 print(return_string)
