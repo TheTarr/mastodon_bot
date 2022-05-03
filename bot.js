@@ -355,6 +355,26 @@ listener.on('message', msg => {
                     toot(`@${acct} 经过缜密思考，操操感觉这句话应该是：\r\n` + reply + "\r\n对不对！操！", id, visib);
                 });
             }
+            // 调用 python 10： 点拨
+            const regex20 = /(点拨|點撥)/i;
+            if (regex20.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for dianbo");
+                const acct = msg.data.account.acct;
+                PythonShell.run('dianbo.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                });
+            }
+
+
+
         }
     }
 });
