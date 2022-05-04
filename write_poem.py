@@ -8,7 +8,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 
 content = sys.argv[1]
 # 下边这条是从node接到的content例子，把上面comment掉测试用（部署之前记得改回去）
-# content = '<p><span class="h-card"><a href="https://bgme.me/@ciao" class="u-url mention">@<span>ciao</span></a></span> 奇遇</p><p>第一句话<br />这是第二句话</p>'
+# content = '<p><span class="h-card"><a href="https://bgme.me/@ciao" class="u-url mention">@<span>ciao</span></a></span> 奇遇</p><p>第一句话<br />这二句话</p>'
 
 # 拆出最后1行的文本，返回
 def split_content(text):
@@ -31,9 +31,23 @@ def split_content(text):
 poem_line = split_content(content)
 return_string = "通信良好。您的诗句已被记录！"
 
-f = open("poem.txt","a",encoding='UTF-8')   #设置文件对象
-f.write(str(encrypt_oracle(poem_line+'\n'))+'\n')
+# 如果没有出现在本诗中就记录，不然不记录
+ml = []
+f = open('poem.txt', "r", encoding='UTF-8')   #设置文件对象
+for i in f.readlines():
+    h = decrypt_oralce(i[2:])
+    ml.append(h.decode())
 f.close() #关闭文件
+
+flag = 0
+for i in ml:
+    if i == poem_line+'\n':
+        flag = 1
+
+if flag ==0:
+    f = open("poem.txt","a",encoding='UTF-8')   #设置文件对象
+    f.write(str(encrypt_oracle(poem_line+'\n'))+'\n')
+    f.close() #关闭文件
 
 flag = 0
 
