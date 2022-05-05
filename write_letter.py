@@ -15,6 +15,8 @@ str2 = '<br />'
 str3 = '<br>'
 
 def split_content(text):
+    if text[-4:] != '</p>':
+        text += '</p>'
     my_string = text[:-4]
     flag1 = text.find(str1)
     my_string = my_string[flag1+7:]

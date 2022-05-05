@@ -8,10 +8,12 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 
 content = sys.argv[1]
 # 下边这条是从node接到的content例子，把上面comment掉测试用（部署之前记得改回去）
-# content = '<p><span class="h-card"><a href="https://bgme.me/@ciao" class="u-url mention">@<span>ciao</span></a></span> 奇遇</p><p>第一句话<br />这二句话</p>'
+# content = '<p><span class="h-card"><a href="https://bgme.me/@ciao" class="u-url mention">@<span>ciao</span></a></span> 奇遇</p><p>第一句话<br />这二句话'
 
 # 拆出最后1行的文本，返回
 def split_content(text):
+    if text[-4:] != '</p>':
+        text += '</p>'
     my_string = text[108:]
     my_string = my_string[:-4]
     # print(my_string)

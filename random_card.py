@@ -12,6 +12,8 @@ content = sys.argv[1]
 
 
 def split_content(text):
+    if text[-4:] != '</p>':
+        text += '</p>'
     my_string = text[108:]
     my_string = my_string[:-4]
     # print(my_string)
