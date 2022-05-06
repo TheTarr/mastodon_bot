@@ -373,6 +373,43 @@ listener.on('message', msg => {
                 });
             }
 
+            // 调用 python 11： 菜谱
+            const regex21 = /(菜谱|菜譜)/i;
+            if (regex21.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for caipu");
+                const acct = msg.data.account.acct;
+                PythonShell.run('caipu.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                });
+            }
+            // 调用 python 12： 小名
+            const regex22 = /(nickname|小名)/i;
+            if (regex22.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for nickname");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('nickname.py', options, function (err, results) {
+                    if (err) 
+                      throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + " 操！", id, visib);
+                });
+            }
+
 
 
         }
