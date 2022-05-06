@@ -4,7 +4,7 @@
 
 CaoCao (Fuck*2 in Chinese) is an autoresponder bot project for mastodon. The functions are: accept sentences from users to write a sonnet solitaire, drift bottle, find a random work in ao3, find a random poem online, accept two character names to return a random story, etc. 
 
-All the texts involved are Chinese. If you are a newbie like me, and working on build your own bot, I (strongly) recommend <a href="https://www.youtube.com/watch?v=sKSxBd56H70">this tutorial</a>.
+All the texts involved are Chinese. If you are a newbie like me and working on build your own bot, I (strongly) recommend <a href="https://www.youtube.com/watch?v=sKSxBd56H70">this tutorial</a>.
 
 # 以下为中文介绍
 长毛象机器人：<a rel="me" href="https://bgme.me/@ciao">操操</a>
