@@ -1,5 +1,10 @@
 # mastodon_bot 长毛象机器人
 
+# English Summary:
+
+CaoCao (Fuck*2) is an autoresponder bot project for mastodon. The functions are: accept sentences from users to write a sonnet solitaire, drift bottle, find a random work in ao3, find a random poem online, accept two character names to return a random story, etc. All the texts involved in the interactions are Chinese.
+
+# 以下为中文介绍
 长毛象机器人：<a rel="me" href="https://bgme.me/@ciao">操操</a>
 
 mastodon即长毛象，是一个去中心化的社交平台。操操是长毛象平台的自动回复机器人项目。
