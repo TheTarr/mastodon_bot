@@ -2,7 +2,7 @@
 
 # English Summary:
 
-CaoCao (Fuck*2) is an autoresponder bot project for mastodon. The functions are: accept sentences from users to write a sonnet solitaire, drift bottle, find a random work in ao3, find a random poem online, accept two character names to return a random story, etc. All the texts involved in the interactions are Chinese.
+CaoCao (Fuck*2 in Chinese) is an autoresponder bot project for mastodon. The functions are: accept sentences from users to write a sonnet solitaire, drift bottle, find a random work in ao3, find a random poem online, accept two character names to return a random story, etc. All the texts involved in the interactions are Chinese.
 
 # 以下为中文介绍
 长毛象机器人：<a rel="me" href="https://bgme.me/@ciao">操操</a>
