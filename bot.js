@@ -547,6 +547,26 @@ listener.on('message', msg => {
                 });
             }
 
+            // 调用 python 18： abo
+            const regex32 = /(abo|信息素)/i;
+            if (regex32.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for abo");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('abo.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
+
             // const content = msg.data.status.content;
             // const id = msg.data.status.id;
             // const visib = msg.data.status.visibility;
