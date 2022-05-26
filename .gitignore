@@ -6,6 +6,7 @@ letter
 poem
 testcopy.py
 temp.txt
+<<<<<<< Updated upstream
 __pycache__
 node_modules
 data
@@ -13,3 +14,11 @@ address
 gpt2
 raokouling
 Japanese_Names.txt
+=======
+node_modules
+data
+raokouling
+gpt2
+address
+bert_seq2seq-master
+>>>>>>> Stashed changes

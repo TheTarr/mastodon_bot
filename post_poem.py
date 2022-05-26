@@ -5,8 +5,9 @@ def get_poem(path):
     ml = []
     f = open(path, "r", encoding='UTF-8')   #设置文件对象
     for i in f.readlines():
-        h = decrypt_oralce(i[2:])
-        ml.append(h.decode())
+        # h = decrypt_oralce(i[2:])
+        # ml.append(h.decode())
+        ml.append(i)
     f.close() #关闭文件
     return ml
 
