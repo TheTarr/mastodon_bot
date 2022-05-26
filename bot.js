@@ -191,7 +191,7 @@ listener.on('message', msg => {
             }
 
             // 调用python 6：写诗
-            const regex9 = /(加一句|来一句|写一句|你好|接龙|來一句|寫一句|接龍)/i;
+            const regex9 = /(加一句|来一句|写一句|你好<|接龙|來一句|寫一句|接龍)/i;
             if (regex9.test(content)) {
                 var options = {
                     mode: 'text',
@@ -566,6 +566,73 @@ listener.on('message', msg => {
                     toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
                 });
             }
+
+            // 调用 python 19： 法号
+            const regex33 = /(法号|法號)/i;
+            if (regex33.test(content)) {
+                const display_name = msg.data.account.display_name;
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [display_name]
+                };
+                console.log("somebody ask for fahao");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('fahao.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} 的法号是：` + reply + "，操！", id, visib);
+                });
+            }
+
+            const regex34 = /(还俗|還俗)/i;
+            if (regex34.test(content)) {
+                console.log("somebody huansu");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 还俗成功！你已步入红尘。操！`;
+                toot(reply, id, visib);
+            }
+
+            // 调用 python 17： 分院帽
+            const regex35 = /(分院帽|入学|入學)/i;
+            if (regex35.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody ask for a ruxue");
+                const acct = msg.data.account.acct;
+                PythonShell.run('fenyuan.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results);
+                    const reply = results[0];
+                    toot(`让我们来看看，适合@${acct} 这个小巫师的学院是……啊，真是令人难以抉择。但经过深思熟虑，我认为应该没错——` + reply + " ！！操！", id, visib);
+                });
+            }
+
+            // 调用 python 17： 饿了
+            const regex36 = /(饿了|餓了)/i;
+            if (regex36.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody ask for a shiwu");
+                const acct = msg.data.account.acct;
+                PythonShell.run('shiwu.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results);
+                    const reply = results[0];
+                    toot(`@${acct} 饿啦？操操正在吃` + reply + "~好吃~~可惜不能分给你呢~~~操~", id, visib);
+                });
+            }
+
+            
 
             // const content = msg.data.status.content;
             // const id = msg.data.status.id;
