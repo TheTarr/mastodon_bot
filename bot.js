@@ -610,7 +610,7 @@ listener.on('message', msg => {
                         throw err;
                     console.log(results);
                     const reply = results[0];
-                    toot(`让我们来看看，适合@${acct} 这个小巫师的学院是……啊，真是令人难以抉择。但经过深思熟虑，我认为应该没错——` + reply + " ！！操！", id, visib);
+                    toot(`@${acct} 让我们来看看，适合这个小巫师的学院是……啊，真是令人难以抉择。但经过深思熟虑，我认为应该没错——\r\n` + reply + " ！！操！", id, visib);
                 });
             }
 
@@ -629,6 +629,33 @@ listener.on('message', msg => {
                     console.log(results);
                     const reply = results[0];
                     toot(`@${acct} 饿啦？操操正在吃` + reply + "~好吃~~可惜不能分给你呢~~~操~", id, visib);
+                });
+            }
+
+            // 汪汪
+            const regex37 = /(推歌|听歌|聽歌|汪汪)/i;
+            if (regex37.test(content)) {
+                console.log("somebody mentioned wang");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} = = @musicdog@bgme.me 醒醒，有人叫你啦，操！`;
+                toot(reply, id, visib);
+            }
+
+            // 调用 python 17： 分院帽
+            const regex38 = /(全职|荣耀|榮耀|全職)/i;
+            if (regex38.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody ask for a quanzhi");
+                const acct = msg.data.account.acct;
+                PythonShell.run('quanzhi.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "！操！", id, visib);
                 });
             }
 
