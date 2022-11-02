@@ -6,10 +6,15 @@ CaoCao (Fuck*2 in Chinese) is an autoresponder bot project for mastodon. The fun
 
 All the texts involved are Chinese. If you are a newbie like me and working on build your own bot, I (strongly) recommend <a href="https://www.youtube.com/watch?v=sKSxBd56H70">this tutorial</a>.
 
-# 以下为中文介绍
+# 项目中文简介
+
 长毛象机器人：<a rel="me" href="https://bgme.me/@ciao">操操</a>
 
 mastodon即长毛象，是一个去中心化的社交平台。操操是长毛象平台的自动回复机器人项目。
+
+本项目运行逻辑为bot.js持续监听长毛象API，通过bot.js本体或fork python程序完成指令，bot.js向用户发嘟文返回结果
+
+每个功能对应的py文件请在bot.js里ctrl+F吧……实在记不清了233
 
 # 以下为截止 2022/11/02 操操的所有功能
 
@@ -110,8 +115,6 @@ mastodon即长毛象，是一个去中心化的社交平台。操操是长毛象
           角色3
           ……
 
-【以下功能的描述就不贴了】
-
 英文名|英语名|英語名
 
 替身|sutando
@@ -159,18 +162,14 @@ joke|笑話|笑话
 忏悔|懺悔
 
 快递|快遞
+
           示例：
           @ciao 快递
           allthestar@alive.bar（改为您快递收件人的完整地址，开头不要有@符号）
           包裹中的内容写在第三行
 
-# 逻辑
 
-bot.js持续监听长毛象API，通过bot.js或fork python程序完成指令，bot.js向用户发嘟文返回结果
-
-每个功能请在bot.js里ctrl+F吧……实在记不清了
-
-# 为了跑这些代码，你需要
+# Requirements
 
 1. nodejs[14.16.1]（library文件里包含了）
 
@@ -186,7 +185,7 @@ bot.js持续监听长毛象API，通过bot.js或fork python程序完成指令，
 
 1. 在自己电脑跑：打开一个terminal，输入【node bot.js】启动即可。关机会停止工作
 
-2. 在服务器：ssh到服务器，输入【pm2 start bot.js】启动即可
+2. 在服务器：ssh到服务器，输入【pm2 start bot.js】启动
 
 # 边学边做的保姆级教学
 
@@ -252,6 +251,8 @@ node bot.js 回车
 
 发现屏幕上出现一行Mastodon Bot starting...就可以了！
 
+# Freetalk（够了，你以为这是同人本吗！）
+
 我在尝试的过程中发现启动后第一次通知往往收不到（可能是我连接的问题？）多艾特一次就好了
 
-如果有时候网页收得到提醒但console没log东西，比较可能是丢包，ping一下您的站点试试
+如果有时候网页收得到提醒但console没log东西，比较可能是丢包，ping一下您的站点试试 ;-)
