@@ -5,6 +5,7 @@ const PythonShell = require('python-shell').PythonShell;
 
 console.log("Mastodon Bot starting...");
 const poem_posters = new Set();
+const package_sender = new Set();
 
 const M = new Mastodon({
     client_key: process.env.CLIENT_KEY,
@@ -191,7 +192,7 @@ listener.on('message', msg => {
             }
 
             // 调用python 6：写诗
-            const regex9 = /(加一句|来一句|写一句|你好<|接龙|來一句|寫一句|接龍)/i;
+            const regex9 = /(写一句|你好<|接龙|寫一句|接龍)/i;
             if (regex9.test(content)) {
                 var options = {
                     mode: 'text',
@@ -207,6 +208,19 @@ listener.on('message', msg => {
                 if (poem_posters.has(acct)) {
                     console.log("the user already posted today");
                     toot(`@${acct} ` + "\r\n今天您已经投过诗了！操！", id, visib);
+                    // 把上面这句解了，下面comment掉
+                    // PythonShell.run('write_poem.py', options, function (err, results) {
+                    //     if (err)
+                    //         throw err;
+                    //     console.log(results[0]);
+                    //     M.post(`statuses/${id}/favourite`, (error, data) => {
+                    //         if (error) {
+                    //             console.error(error);
+                    //         } else {
+                    //             console.log(`Favorated: ${data.content}`);
+                    //         }
+                    //     });
+                    // });
                 }
                 else {
                     poem_posters.add(acct);
@@ -659,7 +673,476 @@ listener.on('message', msg => {
                 });
             }
 
+            // 调用 python 18： 独角兽
+            const regex39 = /(独角兽|獨角獸)/i;
+            if (regex39.test(content)) {
+                const acct = msg.data.account.acct;
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [acct]
+                };
+                console.log("somebody ask for a dujiaoshou");
+                PythonShell.run('unicorn.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 19： 拉郎
+            const regex40 = /(拉郎|乱炖|亂炖)/i;
+            if (regex40.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for random cp");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('random_cp.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 20： 英文名字
+            const regex41 = /(英文名|英语名|英語名)/i;
+            if (regex41.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for en name");
+                const acct = msg.data.account.acct;
+                PythonShell.run('en_name.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} 的英文名是：` + reply + "，操！", id, visib);
+                });
+            }
+
+            // 调用 python 21： 替身使者
+            const regex42 = /(替身|sutando)/i;
+            if (regex42.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody ask for a sutando");
+                const acct = msg.data.account.acct;
+                PythonShell.run('sutando.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} 你走在路上……被「箭」射中了！\r\n\r\n` + reply + " \r\n\r\n操！", id, visib);
+                });
+            }
+            // 调用 python 22： 酱
+            const regex43 = /(酱|醬)/i;
+            if (regex43.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for en jelly");
+                const acct = msg.data.account.acct;
+                PythonShell.run('jelly.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} 今日蘸酱：` + reply + "，操！", id, visib);
+                });
+            }
+            // 调用 python 23： 笑话
+            const regex44 = /(joke|笑話|笑话)/i;
+            if (regex44.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for en joke");
+                const acct = msg.data.account.acct;
+                PythonShell.run('jokes.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "\r\n操！", id, visib);
+                });
+            }
+
+             // 调用 python 24： 酱
+             const regex45 = /(猫语|貓語)/i;
+             if (regex45.test(content)) {
+                 var options = {
+                     mode: 'text',
+                     pythonOptions: ['-u'],
+                 };
+                 console.log("somebody ask for a catlog");
+                 const acct = msg.data.account.acct;
+                 PythonShell.run('catlog.py', options, function (err, results) {
+                     if (err)
+                         throw err;
+                     console.log(results[0]);
+                     const reply = results[0];
+                     toot(`@${acct} 操操推测，猫道友刚刚说的是：` + reply + "\r\n操！", id, visib);
+                 });
+             }
+
+             const regex46 = /(登基|登机)/i;
+             if (regex46.test(content)) {
+                console.log("dengji");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 吾皇万岁、万万岁！操！`;
+                toot(reply, id, visib);
+            }
+
+             const regex47 = /(驾崩|駕崩)/i;
+             if (regex47.test(content)) {
+                console.log("jiabeng");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 皇上、驾崩！皇上、驾——崩——操！`;
+                toot(reply, id, visib);
+            }
+
+            // 调用 python 24： shihao
+            const regex48 = /(谥号|謚號)/i;
+            if (regex48.test(content)) {
+                const display_name = msg.data.account.display_name;
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [display_name]
+                };
+                console.log("somebody ask for shihao");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('shihao.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} 的谥号是：` + reply + "皇帝，操！", id, visib);
+                });
+            }
+
+            // 调用 python 24： shihao
+            const regex49 = /(入宫|入宮)/i;
+            if (regex49.test(content)) {
+                const display_name = msg.data.account.display_name;
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [display_name]
+                };
+                console.log("somebody ask for rugong");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('hougong.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`封 @${acct} 为：` + reply + "，操！", id, visib);
+                });
+            }
+
+            // 调用 python 23： 江湖
+            const regex50 = /(江湖|拜入)/i;
+            if (regex50.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for jianghu");
+                const acct = msg.data.account.acct;
+                PythonShell.run('jianghu.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "！操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 宠物
+            const regex51 = /(妖怪|原形)/i;
+            if (regex51.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a yaoguai");
+                const acct = msg.data.account.acct;
+                PythonShell.run('yaoguai.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "，操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 钓鱼
+            const regex52 = /(钓鱼|釣魚)/i;
+            if (regex52.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a yaoguai");
+                const acct = msg.data.account.acct;
+                PythonShell.run('diaoyu.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python： 种地
+            const regex53 = /(种瓜|種瓜)/i;
+            if (regex53.test(content)) {
+                const acct = msg.data.account.acct;
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [acct]
+                };
+                console.log("somebody ask for zhonggua");
+                console.log(content);
+                PythonShell.run('zhongdi.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 偷瓜
+            const regex54 = /(偷瓜|偷菜)/i;
+            if (regex54.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a tougua");
+                const acct = msg.data.account.acct;
+                PythonShell.run('zhongdi_toucai.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 
+            const regex55 = /(林克|link)/i;
+            if (regex55.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a weapon");
+                const acct = msg.data.account.acct;
+                PythonShell.run('weapon.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 
+            const regex56 = /(守望|特工)/i;
+            if (regex56.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a weapon");
+                const acct = msg.data.account.acct;
+                PythonShell.run('ow.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用python 7：抽卡
+            const regex57 = /(方舟|干员|幹員)/i;
+            if (regex57.test(content)) {
+                const display_name = msg.data.account.display_name;
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [display_name]
+                };
+                console.log("somebody pick a card");
+                const acct = msg.data.account.acct;
+                PythonShell.run('mrfz.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 钓鱼
+            const regex58 = /(挖矿|挖礦|矿工|礦工)/i;
+            if (regex58.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a yaoguai");
+                const acct = msg.data.account.acct;
+                PythonShell.run('wakuang.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 海鸥
+            const regex59 = /(海鸥|海鷗)/i;
+            if (regex59.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a seagull");
+                const acct = msg.data.account.acct;
+                PythonShell.run('seagull.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "，操！", id, visib);
+                });
+            }
+            // 调用python：
+            const regex60 = /(旋律|主题曲|主題曲)/i;
+            if (regex60.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u']
+                };
+                console.log("somebody pick a jianpu");
+                const acct = msg.data.account.acct;
+                PythonShell.run('jianpu.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
+
+            // 调用 python 3： 结婚
+            const regex61 = /(结婚|結婚|婚礼|婚禮)/i;
+            if (regex61.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for jiehun");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('jiehun.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
+            // 睡操操
+            const regex62 = /(睡操操|睡觉|睡覺)/i;
+            if (regex62.test(content)) {
+                console.log("somebody ask for a sleep");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} ……既然要和我睡，就把手机放下吧！晚安！操！`;
+                toot(reply, id, visib);
+            }
+            // 忏悔
+            const regex63 = /(忏悔|懺悔)/i;
+            if (regex63.test(content)) {
+                console.log("somebody ask for a chanhui");
+                const acct = msg.data.account.acct;
+                const reply = `@${acct} 这个世界上每个人都有罪，所以你也不例外。操！`;
+                toot(reply, id, visib);
+            }
+
+            // 调用 python 3： 奇遇
+            const regex64 = /(快递|快遞)/i;
+            if (regex64.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for kuaidi");
+                console.log(content);
+                const acct = msg.data.account.acct;
+
+                if (package_sender.has(acct)) {
+                    console.log("the user already send today");
+                    toot(`@${acct} ` + "\r\n今天您已经寄过快递了哟！操！", id, visib);
+                }
+                else {
+                    package_sender.add(acct);
+                    M.post(`statuses/${id}/favourite`, (error, data) => {
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log(`Favorated: ${data.content}`);
+                        }
+                    });
+                    PythonShell.run('kuaidi.py', options, function (err, results) {
+                        if (err)
+                            throw err;
+                        console.log(results[0]);
+                        console.log(id);
+                        const reply = results[0];
+                        // toot(`@${acct} ` + reply + " 操！", id, visib);
+                        toot(reply + " 操！", ' 109087582273106861', visib);
+                    });
+                }
+            }
+
+            // // 调用 python 3： 奇遇
+            // const regex65 = /(大家好！)/i;
+            // if (regex65.test(content)) {
+            //     console.log("接收到召唤");
+            //     console.log(id);
+            // }
+
             
+
+            
+
 
             // const content = msg.data.status.content;
             // const id = msg.data.status.id;

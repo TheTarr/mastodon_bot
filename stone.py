@@ -9,7 +9,7 @@ path = 'stone.txt'
 total_n = 272
 
 f = open(path,"r",encoding='UTF-8')   #设置文件对象
-i = random.randint(0,total_n-1)
+i = random.randint(1,total_n)
 content=linecache.getline(path, i)
 flag1 = 0
 flag2 = 0

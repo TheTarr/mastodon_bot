@@ -10,7 +10,7 @@ path = 'address'
 total_n = 169
 files =  os.listdir(path)
 
-country = random.randint(0,total_n-1)
+country = random.randint(1,total_n)
 
 count = len(open(path + '/' + files[country],'r', encoding = 'utf-8').readlines())
 # print(count)
