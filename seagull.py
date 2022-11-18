@@ -6,7 +6,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 
 return_string = ''
 path = 'seagull.txt'
-total_n = 99
+total_n = 136
 
 f = open(path,"r",encoding='UTF-8')   #设置文件对象
 i = random.randint(1,total_n)

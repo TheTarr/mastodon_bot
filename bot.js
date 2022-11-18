@@ -1095,7 +1095,7 @@ listener.on('message', msg => {
                 toot(reply, id, visib);
             }
 
-            // 调用 python 3： 奇遇
+            // 调用 python
             const regex64 = /(快递|快遞)/i;
             if (regex64.test(content)) {
                 var options = {
@@ -1130,6 +1130,42 @@ listener.on('message', msg => {
                         toot(reply + " 操！", ' 109087582273106861', visib);
                     });
                 }
+            }
+
+            // 调用 python 16： 海鸥
+            const regex65 = /(银英|銀英)/i;
+            if (regex65.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a yinying");
+                const acct = msg.data.account.acct;
+                PythonShell.run('yinying.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "，操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 海鸥
+            const regex66 = /(奶茶|珍奶)/i;
+            if (regex66.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a milktea");
+                const acct = msg.data.account.acct;
+                PythonShell.run('milktea.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "。操！", id, visib);
+                });
             }
 
             // // 调用 python 3： 奇遇
