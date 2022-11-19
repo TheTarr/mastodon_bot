@@ -1168,6 +1168,24 @@ listener.on('message', msg => {
                 });
             }
 
+            // 调用 python： pokemon
+            const regex67 = /(宝可梦|寶可夢)/i;
+            if (regex67.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a pokemon");
+                const acct = msg.data.account.acct;
+                PythonShell.run('pokemon.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "。操！", id, visib);
+                });
+            }
+
             // // 调用 python 3： 奇遇
             // const regex65 = /(大家好！)/i;
             // if (regex65.test(content)) {
