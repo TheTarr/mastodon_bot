@@ -1186,6 +1186,43 @@ listener.on('message', msg => {
                 });
             }
 
+            // 调用 python： pokemon
+            const regex68 = /(核酸|冠状病毒检测)/i;
+            if (regex68.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a hesuan");
+                const acct = msg.data.account.acct;
+                PythonShell.run('hesuan.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "。操！", id, visib);
+                });
+            }
+
+            // 调用 python： pokemon
+            const regex69 = /(狂攻|攻度)/i;
+            if (regex69.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for a kuanggong");
+                const acct = msg.data.account.acct;
+                PythonShell.run('kuanggong.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
             // // 调用 python 3： 奇遇
             // const regex65 = /(大家好！)/i;
             // if (regex65.test(content)) {
