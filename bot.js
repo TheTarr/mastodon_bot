@@ -1223,6 +1223,46 @@ listener.on('message', msg => {
                 });
             }
 
+            // 调用 python： pokemon
+            const regex70 = /(三房金婚|风花雪月金婚|風花雪月金婚)/i;
+            if (regex70.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for a jinhun");
+                const acct = msg.data.account.acct;
+                PythonShell.run('threehouse.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "！操！", id, visib);
+                });
+            }
+
+            // 调用 python： pokemon
+            const regex71 = /(网名|網名)/i;
+            if (regex71.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for a wangming");
+                const acct = msg.data.account.acct;
+                PythonShell.run('ci.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "！操！", id, visib);
+                });
+            }
+
+            
+
             // // 调用 python 3： 奇遇
             // const regex65 = /(大家好！)/i;
             // if (regex65.test(content)) {
