@@ -35,6 +35,36 @@ function toot(mystr, id, visib) {
     });
 }
 
+function toot_pic(mystr, id, visib, imagePath) {
+    const params = {
+        status: mystr,
+      };
+      
+      if (id) {
+        params.in_reply_to_id = id;
+      }
+      if (visib) {
+        params.visibility = visib;
+      }
+      
+      M.post('media', { file: fs.createReadStream(imagePath) })
+        .then((response) => {
+          const mediaId = response.data.id;
+          params.media_ids = [mediaId];
+      
+          M.post('statuses', params, (error, data) => {
+            if (error) {
+              console.error(error);
+            } else {
+              console.log(`Posted: ${data.content}`);
+            }
+          });
+        })
+        .catch((error) => {
+          console.error('Error uploading media:', error);
+        });
+  }
+
 
 const listener = M.stream('streaming/user')
 
@@ -202,44 +232,63 @@ listener.on('message', msg => {
                 console.log("somebody wrote a line");
                 console.log(content);
                 const acct = msg.data.account.acct;
-                console.log(poem_posters);
-                console.log(acct);
-                console.log(poem_posters.has(acct));
-                if (poem_posters.has(acct)) {
-                    console.log("the user already posted today");
-                    toot(`@${acct} ` + "\r\n今天您已经投过诗了！操！", id, visib);
-                    // 把上面这句解了，下面comment掉
-                    // PythonShell.run('write_poem.py', options, function (err, results) {
-                    //     if (err)
-                    //         throw err;
-                    //     console.log(results[0]);
-                    //     M.post(`statuses/${id}/favourite`, (error, data) => {
-                    //         if (error) {
-                    //             console.error(error);
-                    //         } else {
-                    //             console.log(`Favorated: ${data.content}`);
-                    //         }
-                    //     });
-                    // });
-                }
-                else {
-                    poem_posters.add(acct);
-                    PythonShell.run('write_poem.py', options, function (err, results) {
-                        if (err)
-                            throw err;
-                        // console.log(results[0]);
-                        // const reply = results[0];
-                        // toot(`@${acct} ` + reply + "\r\n操！", id, visib);
-                        console.log(results[0]);
-                        M.post(`statuses/${id}/favourite`, (error, data) => {
-                            if (error) {
-                                console.error(error);
-                            } else {
-                                console.log(`Favorated: ${data.content}`);
-                            }
-                        });
+
+                PythonShell.run('write_poem.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    // console.log(results[0]);
+                    // const reply = results[0];
+                    // toot(`@${acct} ` + reply + "\r\n操！", id, visib);
+                    console.log(results[0]);
+                    M.post(`statuses/${id}/favourite`, (error, data) => {
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log(`Favorated: ${data.content}`);
+                        }
                     });
-                }
+                });
+
+
+
+                // console.log(poem_posters);
+                // console.log(acct);
+                // console.log(poem_posters.has(acct));
+                // if (poem_posters.has(acct)) {
+                //     console.log("the user already posted today");
+                //     toot(`@${acct} ` + "\r\n今天您已经投过诗了！操！", id, visib);
+                //     // 把上面这句解了，下面comment掉
+                //     // PythonShell.run('write_poem.py', options, function (err, results) {
+                //     //     if (err)
+                //     //         throw err;
+                //     //     console.log(results[0]);
+                //     //     M.post(`statuses/${id}/favourite`, (error, data) => {
+                //     //         if (error) {
+                //     //             console.error(error);
+                //     //         } else {
+                //     //             console.log(`Favorated: ${data.content}`);
+                //     //         }
+                //     //     });
+                //     // });
+                // }
+                // else {
+                //     poem_posters.add(acct);
+                //     PythonShell.run('write_poem.py', options, function (err, results) {
+                //         if (err)
+                //             throw err;
+                //         // console.log(results[0]);
+                //         // const reply = results[0];
+                //         // toot(`@${acct} ` + reply + "\r\n操！", id, visib);
+                //         console.log(results[0]);
+                //         M.post(`statuses/${id}/favourite`, (error, data) => {
+                //             if (error) {
+                //                 console.error(error);
+                //             } else {
+                //                 console.log(`Favorated: ${data.content}`);
+                //             }
+                //         });
+                //     });
+                // }
             }
 
             // 调用python 7：抽卡
@@ -1260,6 +1309,232 @@ listener.on('message', msg => {
                     toot(`@${acct} ` + reply + "！操！", id, visib);
                 });
             }
+
+            // 调用 python： 结婚
+            const regex72 = /(礼物|禮物)/i;
+            if (regex72.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for gift");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('gift.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 红包
+            const regex73 = /(红包|紅包)/i;
+            if (regex73.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a hongbao");
+                const acct = msg.data.account.acct;
+                PythonShell.run('hongbao.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： 红包
+            const regex74 = /(采花|採花)/i;
+            if (regex74.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a caihua");
+                const acct = msg.data.account.acct;
+                PythonShell.run('flower.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 3： 招魂
+            const regex75 = /(招魂|做法)/i;
+            if (regex75.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for zhaohun");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('zhaohun.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： caolong
+            const regex76 = /(操龙|操龍)/i;
+            if (regex76.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a caolong");
+                const acct = msg.data.account.acct;
+                PythonShell.run('mh.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 3： 结婚
+            const regex77 = /(离婚|離婚)/i;
+            if (regex77.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody ask for lihun");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('lihun.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} \r\n` + reply + "\r\n操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： caolong
+            const regex78 = /祝福/i;
+            if (regex78.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a zhufu");
+                const acct = msg.data.account.acct;
+                PythonShell.run('zhufu.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： caolong
+            const regex79 = /(发票|發票|开票|開票)/i;
+            if (regex79.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a fapiao");
+                const acct = msg.data.account.acct;
+                PythonShell.run('fapiao.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： caolong
+            const regex80 = /(剧本|劇本)/i;
+            if (regex80.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a juben");
+                const acct = msg.data.account.acct;
+                PythonShell.run('jubensha.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            const regex81 = /(签名|簽名)/i;
+            if (regex81.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                    args: [content]
+                };
+                console.log("somebody asked for a signature");
+                console.log(content);
+                const acct = msg.data.account.acct;
+                PythonShell.run('signature.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]); // results[0] is the name of the picture
+                    const imagePath = `./signature/${results[0]}`;
+                    toot_pic(`@${acct} 操大师精心设计您的签名如下！操！`, id, visib, imagePath);
+                });
+            }
+
+            // 调用 python 16： caolong
+            const regex82 = /口癖/i;
+            if (regex82.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a koupi");
+                const acct = msg.data.account.acct;
+                PythonShell.run('koupi.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results[0];
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+            // 调用 python 16： caolong
+            const regex83 = /(m屬性|m属性)/i;
+            if (regex83.test(content)) {
+                var options = {
+                    mode: 'text',
+                    pythonOptions: ['-u'],
+                };
+                console.log("somebody ask for a m");
+                const acct = msg.data.account.acct;
+                PythonShell.run('m.py', options, function (err, results) {
+                    if (err)
+                        throw err;
+                    console.log(results[0]);
+                    const reply = results.join('\r\n');
+                    toot(`@${acct} ` + reply + "操！", id, visib);
+                });
+            }
+
+
+
 
             
 
