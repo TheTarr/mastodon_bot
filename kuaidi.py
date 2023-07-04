@@ -5,6 +5,8 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8')
 
 content = sys.argv[1]
 
+#content = '<p><span class="h-card"><a href="https://bgme.me/@ciao" class="u-url mention">@<span>ciao</span></a></span> 奇遇</p><p>@第一句话<br />@ciao@hge'
+
 def split_content(text):
     if text[-4:] != '</p>':
         text += '</p>'
@@ -42,4 +44,7 @@ elif person1 == 'ciao@bgme.me':
     print("哎？居然有人类给我寄了一个包裹！内容是……" + person2 + '……？谢谢！操！')
     
 else:
-    print('@' + person1 + ' 您好！有一份寄给您的匿名包裹，内容为：' + person2 + '。祝您生活愉快！')
+    if person1[0] != "@":
+        print('@' + person1 + ' 您好！有一份寄给您的匿名包裹，内容为：' + person2 + '。祝您生活愉快！')
+    else:
+        print(person1 + ' 您好！有一份寄给您的匿名包裹，内容为：' + person2 + '。祝您生活愉快！')
